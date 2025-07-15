@@ -28,12 +28,13 @@ let init = () => {
     // margins
     const PAGE_MARGIN_MILLIMETERS = 7;
     const CELL_SPACING_MILLIMETERS = 2;
+    const MAGIC_OFFSET = 50;
 
     // dependent constants
     const WIDTH_MILLIMETERS = PAGE_WIDTH_MILLIMETERS - 2 * PAGE_MARGIN_MILLIMETERS;
     const HEIGHT_MILLIMETERS = PAGE_HEIGHT_MILLIMETERS - 2 * PAGE_MARGIN_MILLIMETERS;
     const BOARDS_PER_PAGE = COLUMNS_PER_PAGE * ROWS_PER_PAGE;
-    const FIELD_SIZE_MILLIMETERS = Math.min(HEIGHT_MILLIMETERS / ROWS_PER_PAGE, WIDTH_MILLIMETERS / COLUMNS_PER_PAGE) - 2 * CELL_SPACING_MILLIMETERS;
+    const FIELD_SIZE_MILLIMETERS = Math.min(HEIGHT_MILLIMETERS / ROWS_PER_PAGE, WIDTH_MILLIMETERS / COLUMNS_PER_PAGE) - 2 * CELL_SPACING_MILLIMETERS + MAGIC_OFFSET;
 
     let labels;
     let centerLabel;
@@ -99,7 +100,7 @@ let init = () => {
             for (let i = 0; i < 5; i++) {
                 const cell = document.createElement("div");
                 cell.className = "cell";
-                cell.innerText = entries[5 * r + i];
+                cell.innerText = entries[5 * r + i] + "\n\n\n ____________";
                 row.appendChild(cell);
             }
             grid.appendChild(row);
@@ -171,6 +172,35 @@ let init = () => {
         history.replaceState({}, '', `${location.pathname}?${searchParams}`);
         loadFromURL(url);
     });
+    parseText([
+        "🎉🎉 Geburtstagsbingo von:",
+        "Gitarre spielen kann",
+        "Ein rotes Auto hat",
+        "Die weiteste Anreise hatte",
+        "Fünf oder mehr Jahre älter ist",
+        "Fünf oder mehr Jahre jünger ist",
+        "Min. drei Kinder hat",
+        "Im Januar Geburtstag hat",
+        "Im Februar Geburtstag hat",
+        "Ein Einzelkind ist",
+        "Größer als 1,90 m ist",
+        "In einem Sportverein ist",
+        "Die gleiche Schuhgröße hat",
+        "Mehr als drei Enkelkinder hat",
+        "Ein besonderes Hobby hat",
+        "Zwei Schwestern hat",
+        "Linkshänder ist",
+        "Höhenangst hat",
+        "Ein Tattoo hat",
+        "Eine Katze hat",
+        "Einen Hund hat",
+        "Vegitarier/Veganer ist",
+        "Aus dem Ausland kommt",
+        "Angst vor Spinnen hat",
+        "Klavier spielen kann",
+        "Du bisher nicht gekannt hast",
+        "Jemand der über 60 Jahre alt ist"
+    ].join("\n"));
 };
 let errorHandler = ev => {
     alert(ev.error.message);
